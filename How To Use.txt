@@ -1,0 +1,29 @@
+﻿“Wolfram Alpha”
+
+
+
+
+This was my attempt at making a software to mimic the capabilities of Wolfram|Alpha using python. This program includes a graphing software built from scratch and a secondary software similar to wolfram that computes equations with the help of SymPy. Both of these programs were made using TKinter. 
+
+
+Notes
+
+
+Unfortunately, this was my first attempt at making a larger project using TKinter and python in general, and the inexperience shows. I was unable to integrate the graphing calculator into the second program's UI, due to problems initializing a second instance of TKinter at will. Both programs are “functional” when run, but certain features that were programmed but unable to be implemented due to my inexperience are missing.
+
+
+How to Use
+
+
+Graphing Calculator
+
+
+To initialize the graphing calculator, run the file “graphingCalculator.py”. You will be initialized into a ui with a function already graphed. To graph another function, simply press the clear button, and enter your new function. After you press enter, the program will attempt to graph it. Be mindful of syntax, as unclosed parentheses and unrecognizable syntax will result in an error. To exit, either close the program or press the “Exit Program” button.
+Enoy!
+
+
+Main Calculator
+
+
+The main calculator ui takes a little while to get used to. To initialize, run the “main.py” file. You will be taken to a calculator-like interface. To compute numerical calculations, enter the numbers and the relevant operations and press “enter”. If you add an equal sign, the program will assume that it is an equation, not an expression. To have it solve algebraic equations, you need to enter the full expression (eg. “2x+3=5), and press submit. The program will reject multiple variables as it cannot handle systems. For calculus expressions, you need to enter the expression that you are trying to evaluate, then navigate to the calculus section and press the relevant operator. This will immediately return the answer (ex. Enter “2x + 3” and press the integral operator, and it will immediately return “x**2 + 3*x”). To end a calculation, press the clear button. If you do not get an answer, assume you made a syntax error, as the program will output the error message in the console. To exit, just close the program
+Enjoy!
