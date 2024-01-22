@@ -1,5 +1,6 @@
 from functions import *
 
+# adds classes for each button
 def placeNavPanel():
     txtBox.grid(row=1, column=0, sticky='new')
     i = 0

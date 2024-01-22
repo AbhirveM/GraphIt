@@ -11,12 +11,12 @@ computationDistance = 0.001
 asymptoteMulti = 2.0
 viewSize = 8.0
 
-
 def printFormula(preText):
     Label(rootGraph, text=preText + "[{0:.0f}".format(viewSize) + "] f(x) = " + formula, relief=RIDGE,
           width=1).grid(row=1, column=0, columnspan=5, sticky=W + E)
 
 
+# Changes the coordinate system from the tkinter one to cartesian
 def translate(xCurrent, yCurrent):
     tc = [0, 0]
     xMul = int(canvas["width"]) / (viewSize * 2)
@@ -28,6 +28,7 @@ def translate(xCurrent, yCurrent):
     return tc
 
 
+# Draws line between two points, used to plot
 def drawLine(xFrom, yFrom, xTo, yTo, colour):
     fromCoord = translate(xFrom, yFrom)
     toCoord = translate(xTo, yTo)
@@ -36,11 +37,13 @@ def drawLine(xFrom, yFrom, xTo, yTo, colour):
     canvas.create_line(fromCoord[0], fromCoord[1], toCoord[0], toCoord[1], fill=colour)
 
 
+# Draws the gridlines centred at the middle of screen
 def drawGrid():
     drawLine(viewSize * -1, 0, viewSize, 0, "darkgray")
     drawLine(0, viewSize * -1, 0, viewSize, "darkgray")
 
 
+# Does the calculating and drawing of func
 def drawGraph(xd):
     canvas.delete("all")
     drawGrid()
@@ -66,6 +69,7 @@ def drawGraph(xd):
         x += computationDistance * viewSize
 
 
+# Deals with making the prompt usable for math module
 def appendFormula(thing):
     global formula
     if formula.endswith('.') and thing == '.':
@@ -75,20 +79,20 @@ def appendFormula(thing):
         formula += thing
     printFormula("")
 
-
+# Clear button
 def clearFormula():
     global formula
     while formula != "":
         deleteFormula()
     printFormula("")
 
-
+#Delete button
 def deleteFormula():
     global formula
     formula = formula[:-1]
     printFormula("")
 
-
+# Zooms the grid in by afactor of 2
 def zoomIn():
     global viewSize, btnZoomIn, btnZoomOut
     btnZoomOut = ttk.Button(rootGraph, text="Zoom Out", command=lambda: zoomOut()).grid(row=8, column=3)
@@ -99,7 +103,7 @@ def zoomIn():
         btnZoomIn = ttk.Button(rootGraph, text="Zoom In", command=lambda: zoomIn(), state=DISABLED).grid(row=8, column=2)
     drawGraph(None)
 
-
+# Zooms out by a factor of 2
 def zoomOut():
     global viewSize, btnZoomOut, btnZoomIn
     btnZoomIn = ttk.Button(rootGraph, text="Zoom In", command=lambda: zoomIn()).grid(row=8, column=2)
@@ -111,15 +115,14 @@ def zoomOut():
                                   state=DISABLED).grid(row=8, column=3)
     drawGraph(None)
 
-
+# Makes sure that expressions are different from equations
 def correctEndingNoNumber(name):
     return name.endswith('x') or name.endswith('e') or (name.endswith('i') and name[-2:] != "si") or name.endswith(')')
-
 
 def correctEnding(thing):
     return thing[-1:].isdigit() or correctEndingNoNumber(thing)
 
-
+# Changes into proper  notation for math
 def appendImplicit(thing):
     global formula
     if correctEnding(formula):
@@ -145,7 +148,7 @@ def appendNumberFormula(thing):
     formula += thing
     printFormula("")
 
-
+# Makes parentheses into multiplication
 def appendClosingParenthesesFormula(thing):
     global formula
     if correctEnding(formula) and thing == '(':
@@ -153,10 +156,11 @@ def appendClosingParenthesesFormula(thing):
     formula += thing
     printFormula("")
 
+#initializes root and buttons
 
 rootGraph = Tk()
 
-rootGraph.wm_title("Graphing Calculator")
+rootGraph.wm_title('"Desmos"')
 rootGraph.resizable(width=True, height=True)
 
 horizontalScreen = rootGraph.winfo_screenwidth() / 2 - rootGraph.winfo_reqwidth()
@@ -202,6 +206,9 @@ btnEnter = ttk.Button(rootGraph, text="Enter")
 btnZoomIn = ttk.Button(rootGraph, text="Zoom In", command=lambda: zoomIn()).grid(row=8, column=2)
 btnZoomOut = ttk.Button(rootGraph, text="Zoom Out", command=lambda: zoomOut()).grid(row=8, column=3)
 ttk.Button(rootGraph, text="Exit App", command=lambda: exit(0)).grid(row=8, column=4)
+
+
+rootGraph.iconbitmap("desmosLogo.ico")
 
 btnEnter.bind('<Button-1>', drawGraph)
 
